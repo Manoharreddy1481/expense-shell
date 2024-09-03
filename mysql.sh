@@ -30,7 +30,7 @@ VALIDATE() {
         echo -e "$R $2 is not installed $N" | tee -a $LOG_FILE
         exit 1
     else
-        echo -e "$G $2 is installed  $N" | tee -a $LOG_FILE
+        echo -e "$G $2 is running  $N" | tee -a $LOG_FILE
     fi
 
 }
@@ -43,11 +43,11 @@ dnf install mysql-server -y &>>$LOG_FILE
 
 VALIDATE $? " Installing MYSQL Serevr"
 
-dnf enable mysqld &>>$LOG_FILE
+systemctl enable mysqld &>>$LOG_FILE
 
 VALIDATE $? " Enable MYSQL Serevr"
 
-dnf start mysqld &>>$LOG_FILE
+systemctl start mysqld &>>$LOG_FILE
 
 mysql -h mysql.manohar.fun -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
 
